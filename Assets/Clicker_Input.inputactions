@@ -39,6 +39,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8d3f28b4-8f40-4f4b-bf7a-994757d92285",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Pointer",
+                    "action": "Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "fc2b5c14-bec8-4c5e-83a9-6dd187334eb2",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
