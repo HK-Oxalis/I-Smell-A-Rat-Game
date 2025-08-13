@@ -38,18 +38,32 @@ public class Location : MonoBehaviour, IClickable
 
         //call the sit down function when the button called that is clicked
         (menu.Q("Sit_Down") as Button).RegisterCallback<ClickEvent>(Sit_Down);
-
     }
 
     private void On_Unclick(InputAction.CallbackContext context)
     {
-        //document.enabled = false;
-        click_Action.action.performed -= On_Unclick;
+
+        Rect bounding_Rect = document.rootVisualElement.Q("Sit_Down").worldBound;
+        Vector2 pos = Input.mousePosition;
+        //If the click was outside of the menu's bounding box
+        if (!bounding_Rect.Contains(pos))
+        {
+            Debug.Log(document.rootVisualElement.transform);
+            document.enabled = false;
+            click_Action.action.performed -= On_Unclick;
+        }
+        
+
     }
 
     private void Sit_Down(ClickEvent evt)
     {
+        Debug.Log("Sitting down");
         document.enabled = false;
+        click_Action.action.performed -= On_Unclick;
+
+
+        clicker_Player.Enter_Dialogue_Mode();
 
         clicker_Player.Set_Goal_Position(table_Camera_Transform.position);
         clicker_Player.Set_Goal_Rotation(table_Camera_Transform.forward);
