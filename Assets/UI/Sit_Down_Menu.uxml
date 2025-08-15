@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Menu" style="background-color: rgba(255, 255, 255, 0.46); align-items: center; justify-content: center; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; flex-direction: row; flex-wrap: wrap; flex-shrink: 0; align-self: flex-start; align-content: auto;">
+        <ui:Button text="Sit Down" name="Sit_Down" style="top: auto; bottom: auto; left: auto; right: auto; flex-shrink: 0; width: 100px; height: 50px;" />
+    </ui:VisualElement>
+</ui:UXML>
