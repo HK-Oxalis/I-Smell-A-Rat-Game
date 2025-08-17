@@ -1,0 +1,16 @@
+{
+	"entries": [
+		{
+			"name": "Tom Pendergast",
+			"og_textbox": "I think Boss wouldn't like us talking about this new shipment so loudly...",
+			"explanation": "I think this 'Boss' character is someone worth keeping my eye out for. If we cut off the head of the snake, the body will soon die, I think.",
+			"connected_entries": ["John Lazia", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"]
+		},
+		{
+			"name": "John Lazia",
+			"og_textbox": "I don't want to upset John...you know how he gets when a shipment goes wrong.",
+			"explanation": "John seems to be a key player in this operation, though whether just hired muscle or brains of operations is still up to be found.",
+			"connected_entries": ["Tom 'the boss'", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"]
+		}
+	]
+}
