@@ -45,7 +45,8 @@ public class NotebookManager : MonoBehaviour
             {
                 if (f.entryId == e.id)
                 {
-                    f.UpdateEntry(e.name, e.og_textbox, e.information, e.connected_entries);
+                    f.UpdateEntry(e.name, e.og_textbox, e.information, e.connected_entries, e.unlocked);
+                    f.gameObject.SetActive(e.unlocked);
                 }
             }
         }
@@ -68,6 +69,7 @@ public class Entry
     public string og_textbox;
     public List<string> information;
     public List<string> connected_entries;
+    public bool unlocked;
 }
 
 [Serializable]
