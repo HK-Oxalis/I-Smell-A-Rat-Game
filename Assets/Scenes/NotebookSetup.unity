@@ -742,8 +742,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 199, y: -198}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 250, y: -254}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &587502541
 MonoBehaviour:
@@ -757,10 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417e3458d1c27ea4ba91a0318322d48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryName: Name
-  entryDialogueRef: This is the text that was originally in the text box you saved.
-  entryExplanation: This is a quick musing or explanation of the entry as explained
-    in the characters head.
+  entryId: 2
 --- !u!114 &587502542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1028,8 +1025,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -258, y: -209}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -302, y: -250}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &806229615
 MonoBehaviour:
@@ -1043,10 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417e3458d1c27ea4ba91a0318322d48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryName: Name
-  entryDialogueRef: This is the text that was originally in the text box you saved.
-  entryExplanation: This is a quick musing or explanation of the entry as explained
-    in the characters head.
+  entryId: 3
 --- !u!114 &806229616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,6 +1301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explanationDividerGO: {fileID: 1186263006}
+  entryParent: {fileID: 34112041}
   entryNameTB: {fileID: 734963983}
   entryDiaRefTB: {fileID: 1987710734}
   entryExplanationTB: {fileID: 85312363}
@@ -1674,8 +1669,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -2, y: 56}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352775953
 MonoBehaviour:
@@ -1689,10 +1684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417e3458d1c27ea4ba91a0318322d48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryName: '"Boss" Tom'
-  entryDialogueRef: This is the text that was originally in the text box you saved.
-  entryExplanation: This is a quick musing or explanation of the entry as explained
-    in the characters head.
+  entryId: 1
 --- !u!114 &1352775954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2349,7 +2341,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -168.932}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -551, y: -99}
+  m_AnchoredPosition: {x: -666, y: -104}
   m_SizeDelta: {x: 61.5104, y: 268.3918}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2125084925
@@ -2427,8 +2419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -357, y: 28}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -504, y: 62}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2137870871
 MonoBehaviour:
@@ -2442,10 +2434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417e3458d1c27ea4ba91a0318322d48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryName: Name
-  entryDialogueRef: This is the text that was originally in the text box you saved.
-  entryExplanation: This is a quick musing or explanation of the entry as explained
-    in the characters head.
+  entryId: 4
 --- !u!114 &2137870872
 MonoBehaviour:
   m_ObjectHideFlags: 0

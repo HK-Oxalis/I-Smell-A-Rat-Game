@@ -41,8 +41,13 @@ public class NotebookManager : MonoBehaviour
         foreach (Entry e in data.entries)
         {
             Debug.Log("Name: " + e.name + " Loaded");
-            //Debug.Log("Text: " + e.og_textbox);
-
+            foreach (NotebookEntry f in allEntries)
+            {
+                if (f.entryId == e.id)
+                {
+                    f.UpdateEntry(e.name, e.og_textbox, e.explanation, e.connected_entries);
+                }
+            }
         }
     }
 
@@ -58,6 +63,7 @@ public class NotebookManager : MonoBehaviour
 [Serializable]
 public class Entry
 {
+    public int id;
     public string name;
     public string og_textbox;
     public string explanation;
