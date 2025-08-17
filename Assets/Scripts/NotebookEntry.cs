@@ -8,7 +8,7 @@ public class NotebookEntry : MonoBehaviour
     public int entryId = 1;
     string entryName = "Name";
     string entryDialogueRef = "This is the text that was originally in the text box you saved.";
-    string entryExplanation = "This is a quick musing or explanation of the entry as explained in the characters head.";
+    List<string> entryInformation = new List<string>{ "This is a quick musing or explanation of the entry as explained in the characters head." };
     List<string> connectedEntries = new List<string>();
 
     NotebookManager nm;
@@ -21,14 +21,19 @@ public class NotebookEntry : MonoBehaviour
 
     public void EntryClicked ()
     {
-        nm.DisplayExplanation(entryName, entryDialogueRef, entryExplanation);
+        string finalInformation = entryInformation[0];
+        for (int i = 1; i < entryInformation.Count; i++)
+        {
+            finalInformation += "\n\n" + entryInformation[i];
+        }
+        nm.DisplayExplanation(entryName, entryDialogueRef, finalInformation);
     }
 
-    public void UpdateEntry (string name, string diaRef, string expl, List<string> ce)
+    public void UpdateEntry (string name, string diaRef, List<string> expl, List<string> ce)
     {
         entryName = name;
         entryDialogueRef = diaRef;
-        entryExplanation = expl;
+        entryInformation = expl;
         connectedEntries = ce;
         GetComponentInChildren<TextMeshProUGUI>().text = entryName;
     }

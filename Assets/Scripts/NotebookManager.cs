@@ -45,7 +45,7 @@ public class NotebookManager : MonoBehaviour
             {
                 if (f.entryId == e.id)
                 {
-                    f.UpdateEntry(e.name, e.og_textbox, e.explanation, e.connected_entries);
+                    f.UpdateEntry(e.name, e.og_textbox, e.information, e.connected_entries);
                 }
             }
         }
@@ -66,7 +66,7 @@ public class Entry
     public int id;
     public string name;
     public string og_textbox;
-    public string explanation;
+    public List<string> information;
     public List<string> connected_entries;
 }
 
