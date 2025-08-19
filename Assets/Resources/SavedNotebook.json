@@ -1,0 +1,55 @@
+{
+	"entries": [
+		{
+			"id": 1,
+			"name": "Tom Pendergast",
+			"og_textbox": "I think Boss wouldn't like us talking about this new shipment so loudly...",
+			"information": [
+				"John seems to be a key player in this operation, though whether just hired muscle or brains of operations is still up to be found.",
+				"Tom seems to be his real name"
+			],
+			"connected_entries": ["John Lazia", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"],
+			"unlocked": true
+		},
+		{
+			"id": 2,
+			"name": "John Lazia",
+			"og_textbox": "I don't want to upset John...you know how he gets when a shipment goes wrong.",
+			"information": [
+				"John seems to be a key player in this operation, though whether just hired muscle or brains of operations is still up to be found."
+			],
+			"connected_entries": ["Tom 'the boss'", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"],
+			"unlocked": true
+		},
+		{
+			"id": 3,
+			"name": "Otto Higgins",
+			"og_textbox": "I think Boss wouldn't like us talking about this new shipment so loudly...",
+			"information": [
+				"John seems to be a key player in this operation, though whether just hired muscle or brains of operations is still up to be found."
+			],
+			"connected_entries": ["John Lazia", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"],
+			"unlocked": true
+		},
+		{
+			"id": 4,
+			"name": "Henry McElroy",
+			"og_textbox": "I don't want to upset John...you know how he gets when a shipment goes wrong.",
+			"information": [
+				"John seems to be a key player in this operation, though whether just hired muscle or brains of operations is still up to be found."
+			],
+			"connected_entries": ["Tom 'the boss'", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"],
+			"unlocked": true
+		},
+		{
+			"id": 5,
+			"name": "Robert O'Malley",
+			"og_textbox": "I don't want to upset John...you know how he gets when a shipment goes wrong.",
+			"information": [
+				"John seems to be a key player in this operation, though whether just hired muscle or brains of operations is still up to be found."
+			],
+			"connected_entries": ["Tom 'the boss'", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"],
+			"unlocked": true
+		}
+	]
+}
