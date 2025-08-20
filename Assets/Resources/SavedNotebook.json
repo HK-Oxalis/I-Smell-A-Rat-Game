@@ -39,7 +39,7 @@
 				"John seems to be a key player in this operation, though whether just hired muscle or brains of operations is still up to be found."
 			],
 			"connected_entries": ["Tom 'the boss'", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"],
-			"unlocked": true
+			"unlocked": false
 		},
 		{
 			"id": 5,
