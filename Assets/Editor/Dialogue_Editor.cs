@@ -14,11 +14,15 @@ public class Dialogue_Editor : EditorWindow
     private ListView list;
 
     private ObjectField conversation_Select;
+    private TextField name_Edit;
     private IntegerField speaker_Count;
     private Button add_Line_Button;
     private Button save_Button;
 
     private TextField line_Edit;
+    private TextField keyphrase_Edit;
+    private FloatField volume_Edit;
+    private FloatField length_Edit;
     private DropdownField speaker_Select;
 
     [MenuItem("Window/UI Toolkit/Dialogue_Editor")]
@@ -40,6 +44,11 @@ public class Dialogue_Editor : EditorWindow
         conversation_Select.objectType = typeof(TextAsset);
         root.Add(conversation_Select);
         conversation_Select.RegisterCallback<ChangeEvent<Object>>((evt) => { Load_Conversation(evt.newValue); });
+
+        Label name_Label = new Label("Conversation name");
+        root.Add(name_Label);
+        name_Edit = new TextField();
+        root.Add(name_Edit);
 
 
         Label speaker_Label = new Label("How many people are speaking in this conversation?");
@@ -76,22 +85,41 @@ public class Dialogue_Editor : EditorWindow
         var rightPane = new VisualElement();
         splitView.Add(rightPane);
 
-
+        rightPane.Add(new Label("Dialogue"));
         line_Edit = new TextField();
         rightPane.Add(line_Edit);
-        line_Edit.RegisterCallback<ChangeEvent<string>>((evt) => {Update_Text(); evt.StopPropagation(); }); 
+        line_Edit.RegisterCallback<ChangeEvent<string>>((evt) => {Update_Text(); evt.StopPropagation(); });
 
+        rightPane.Add(new Label("Key phrase (if any)"));
+        keyphrase_Edit = new TextField();
+        rightPane.Add(keyphrase_Edit);
+        keyphrase_Edit.RegisterCallback<ChangeEvent<string>>((evt) => { lines[current_Line].keyphrase = evt.newValue; });
+
+        rightPane.Add(new Label("Volume (from 1 - 10)"));
+        volume_Edit = new FloatField();
+        rightPane.Add(volume_Edit);
+        volume_Edit.RegisterCallback<ChangeEvent<float>>((evt) => { lines[current_Line].volume = evt.newValue; });
+
+        rightPane.Add(new Label("Length (in seconds)"));
+        length_Edit = new FloatField();
+        rightPane.Add(length_Edit);
+        length_Edit.RegisterCallback<ChangeEvent<float>>((evt) => { lines[current_Line].length_Seconds = evt.newValue; });
+
+        rightPane.Add(new Label("Speaker number"));
         speaker_Select = new DropdownField();
         rightPane.Add(speaker_Select);
         speaker_Select.RegisterCallback<ChangeEvent<string>>((evt) => { Update_Speaker_Select(); evt.StopPropagation(); });
 
 
-        Change_Line(0);
+        list.SetSelection(0);
     }
 
     private void Change_Line(int new_Line)
     {
         line_Edit.value = lines[new_Line].text;
+        keyphrase_Edit.value = lines[new_Line].keyphrase;
+        volume_Edit.value = lines[new_Line].volume;
+        length_Edit.value = lines[new_Line].length_Seconds;
         speaker_Select.index = lines[new_Line].speaker_Number;
 
 
@@ -145,11 +173,13 @@ public class Dialogue_Editor : EditorWindow
         this.lines.Clear();
         this.lines.AddRange(convo.lines);
         this.speaker_Count.value = convo.source_Count;
+        this.name_Edit.value = convo.file_Name;
 
         Update_Speaker_Choice();
-        Change_Line(0);
 
         list.RefreshItems();
+        list.SetSelection(0);
+
     }
 
     private void Save_Conversation() 
@@ -158,12 +188,14 @@ public class Dialogue_Editor : EditorWindow
 
         active_Conversation.lines = this.lines.ToArray();
         active_Conversation.source_Count = this.speaker_Count.value;
+        active_Conversation.file_Name = this.name_Edit.value;
 
 
-        string path = "Assets/Objects/Conversations/" + this.lines[0].text + ".txt";
+        string path = "Assets/Objects/Conversations/" + active_Conversation.file_Name + ".txt";
 
         File.WriteAllText(path, active_Conversation.Save_JSON());
 
+        AssetDatabase.ImportAsset(path);
     }
 
 

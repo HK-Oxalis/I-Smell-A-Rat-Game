@@ -1,1 +1,0 @@
-{"speaker_Count":2}{"name":"","text":"Hello","keyphrase":"","volume":0.0,"length_Seconds":0.0,"speaker_Number":0}{"name":"","text":"Good Morning","keyphrase":"","volume":0.0,"length_Seconds":0.0,"speaker_Number":1}{"name":"","text":"","keyphrase":"","volume":0.0,"length_Seconds":0.0,"speaker_Number":0}

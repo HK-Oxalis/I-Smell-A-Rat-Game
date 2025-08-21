@@ -1,0 +1,1 @@
+{"name":Greeting example}{"speaker_Count":2}{"text":"Hello","keyphrase":"","volume":0.0,"length_Seconds":0.0,"speaker_Number":0}{"text":"Good morning!","keyphrase":"morning","volume":0.0,"length_Seconds":0.0,"speaker_Number":1}
