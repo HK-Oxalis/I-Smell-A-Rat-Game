@@ -2,19 +2,23 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+using UnityEditor.UIElements;
+using System.Linq;
 
 public class Dialogue_Editor : EditorWindow
 {
     [SerializeField]
     private VisualTreeAsset m_VisualTreeAsset = default;
+    private Conversation active_Conversation;
     private List<Dialogue_Line> lines;
     private int current_Line = 0;
 
     private ListView list;
-    
+
+    private ObjectField conversation_Select;
     private IntegerField speaker_Count;
     private Button add_Line_Button;
+    private Button save_Button;
 
     private TextField line_Edit;
     private DropdownField speaker_Select;
@@ -34,6 +38,14 @@ public class Dialogue_Editor : EditorWindow
         lines = new List<Dialogue_Line>();
         lines.Add(new Dialogue_Line());
 
+        conversation_Select = new ObjectField();
+        conversation_Select.objectType = typeof(Conversation);
+        root.Add(conversation_Select);
+        conversation_Select.RegisterCallback<ChangeEvent<Object>>((evt) => { Load_Conversation(evt.newValue); });
+
+
+        Label speaker_Label = new Label("How many people are speaking in this conversation?");
+        root.Add(speaker_Label);
         speaker_Count = new IntegerField();
         root.Add(speaker_Count);
         speaker_Count.RegisterCallback<ChangeEvent<int>>((evt) => { Update_Speakers(evt.newValue); evt.StopPropagation(); });
@@ -43,6 +55,10 @@ public class Dialogue_Editor : EditorWindow
         root.Add(add_Line_Button);
         add_Line_Button.RegisterCallback<ClickEvent>((evt) => Add_Line());
 
+        save_Button = new Button();
+        save_Button.text = "Save conversation to file";
+        root.Add(save_Button);
+        save_Button.RegisterCallback<ClickEvent>((evt) => Save_Conversation());
 
         var splitView = new TwoPaneSplitView(0, 50, TwoPaneSplitViewOrientation.Horizontal);
 
@@ -119,7 +135,45 @@ public class Dialogue_Editor : EditorWindow
     }
 
 
+    private void Load_Conversation(Object convo_Obj)
+    {
+        Debug.Log(convo_Obj.GetType());
+        Conversation convo = (Conversation)convo_Obj;
+        Debug.Log(convo);
 
+        this.lines.Clear();
+        this.lines.AddRange(convo.lines);
+        this.speaker_Count.value = convo.source_Count;
+
+        Update_Speaker_Choice();
+        Change_Line(0);
+
+        list.RefreshItems();
+    }
+
+    private void Save_Conversation() 
+    {
+        string path = "Assets/Objects/Conversations/" + this.lines[0].text + ".asset";
+        
+        if(AssetDatabase.AssetPathExists(path)) { 
+            active_Conversation = AssetDatabase.LoadAssetAtPath(path, typeof(Conversation)) as Conversation; 
+        }
+        else { active_Conversation = new Conversation(); }
+
+            active_Conversation.lines = this.lines.ToArray();
+        active_Conversation.source_Count = this.speaker_Count.value;
+
+        
+
+        Debug.Log(active_Conversation.lines.Length);
+
+        if (!AssetDatabase.AssetPathExists(path)) { AssetDatabase.CreateAsset(active_Conversation, path); }
+        else { 
+            EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath(path, typeof(Object)));  
+            AssetDatabase.SaveAssets(); 
+        }
+
+    }
 
 
 
