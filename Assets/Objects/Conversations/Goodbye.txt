@@ -1,0 +1,1 @@
+{"speaker_Count":2}{"name":"","text":"Goodbye","keyphrase":"","volume":0.0,"length_Seconds":0.0,"speaker_Number":1}{"name":"","text":"Farewell!","keyphrase":"","volume":0.0,"length_Seconds":0.0,"speaker_Number":0}{"name":"","text":"","keyphrase":"","volume":0.0,"length_Seconds":0.0,"speaker_Number":0}

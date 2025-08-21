@@ -3,12 +3,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
-using System.Linq;
+using System.IO;
 
 public class Dialogue_Editor : EditorWindow
 {
-    [SerializeField]
-    private VisualTreeAsset m_VisualTreeAsset = default;
     private Conversation active_Conversation;
     private List<Dialogue_Line> lines;
     private int current_Line = 0;
@@ -39,7 +37,7 @@ public class Dialogue_Editor : EditorWindow
         lines.Add(new Dialogue_Line());
 
         conversation_Select = new ObjectField();
-        conversation_Select.objectType = typeof(Conversation);
+        conversation_Select.objectType = typeof(TextAsset);
         root.Add(conversation_Select);
         conversation_Select.RegisterCallback<ChangeEvent<Object>>((evt) => { Load_Conversation(evt.newValue); });
 
@@ -94,7 +92,7 @@ public class Dialogue_Editor : EditorWindow
     private void Change_Line(int new_Line)
     {
         line_Edit.value = lines[new_Line].text;
-        speaker_Select.index = lines[new_Line].source_Index;
+        speaker_Select.index = lines[new_Line].speaker_Number;
 
 
         current_Line = new_Line;
@@ -131,14 +129,17 @@ public class Dialogue_Editor : EditorWindow
 
     private void Update_Speaker_Select()
     {
-        lines[current_Line].source_Index = speaker_Select.index;
+        lines[current_Line].speaker_Number = speaker_Select.index;
     }
 
 
     private void Load_Conversation(Object convo_Obj)
     {
-        Debug.Log(convo_Obj.GetType());
-        Conversation convo = (Conversation)convo_Obj;
+        TextAsset convo_Text = (TextAsset)convo_Obj;
+        Conversation convo = ScriptableObject.CreateInstance<Conversation>();
+        convo.load_JSON(convo_Text.text);
+
+        active_Conversation = convo;
         Debug.Log(convo);
 
         this.lines.Clear();
@@ -153,25 +154,15 @@ public class Dialogue_Editor : EditorWindow
 
     private void Save_Conversation() 
     {
-        string path = "Assets/Objects/Conversations/" + this.lines[0].text + ".asset";
-        
-        if(AssetDatabase.AssetPathExists(path)) { 
-            active_Conversation = AssetDatabase.LoadAssetAtPath(path, typeof(Conversation)) as Conversation; 
-        }
-        else { active_Conversation = new Conversation(); }
+        if (active_Conversation == null) { active_Conversation = ScriptableObject.CreateInstance<Conversation>(); }
 
-            active_Conversation.lines = this.lines.ToArray();
+        active_Conversation.lines = this.lines.ToArray();
         active_Conversation.source_Count = this.speaker_Count.value;
 
-        
 
-        Debug.Log(active_Conversation.lines.Length);
+        string path = "Assets/Objects/Conversations/" + this.lines[0].text + ".txt";
 
-        if (!AssetDatabase.AssetPathExists(path)) { AssetDatabase.CreateAsset(active_Conversation, path); }
-        else { 
-            EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath(path, typeof(Object)));  
-            AssetDatabase.SaveAssets(); 
-        }
+        File.WriteAllText(path, active_Conversation.Save_JSON());
 
     }
 
