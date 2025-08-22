@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using System.Threading.Tasks;
 
 public class Location : MonoBehaviour, IClickable
 {
-    [SerializeField] Transform table_Camera_Transform;
+    [SerializeField] Transform table_Camera_Transform; //This is an empty that represents where the camera should go after you sit down here
 
     private UIDocument document;
     private Transform menu_Spawn; //This is an empty that represents where the sit down menu should spawn in world space
@@ -36,12 +37,13 @@ public class Location : MonoBehaviour, IClickable
         VisualElement menu = document.rootVisualElement;
         menu.transform.position = clicker_Player.cam.WorldToScreenPoint(menu_Spawn.position);
 
-        //call the sit down function when the button called that is clicked
+        //call the sit down function when the button named that is clicked
         (menu.Q("Sit_Down") as Button).RegisterCallback<ClickEvent>(Sit_Down);
     }
 
     private void On_Unclick(InputAction.CallbackContext context)
     {
+
 
         Rect bounding_Rect = document.rootVisualElement.worldBound;
         //World bound was acting weird so I've just hardcoded the pixel size of the button here
@@ -58,7 +60,6 @@ public class Location : MonoBehaviour, IClickable
             click_Action.action.performed -= On_Unclick;
         }
         
-
     }
 
     private void Sit_Down(ClickEvent evt)
