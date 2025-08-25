@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 [ExecuteAlways]
@@ -8,6 +9,7 @@ public class Conversation_Playback : MonoBehaviour
     [SerializeField] TextAsset conversation_Asset; 
     private Conversation conversation;
     [SerializeField] Transform[] speakers;
+    private UIDocument document;
     private int line_Index = 0;
 
     private void Awake()
