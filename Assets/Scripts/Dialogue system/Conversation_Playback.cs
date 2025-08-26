@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 [ExecuteAlways]
 public class Conversation_Playback : MonoBehaviour
 {
+    public const float Room_Earshot_Scale = 1.2f;
+
     [SerializeField] TextAsset conversation_Asset;
     private Conversation conversation;
     [SerializeField] Transform[] speakers;
@@ -48,15 +50,14 @@ public class Conversation_Playback : MonoBehaviour
         if (from_Beginning) { line_Index = 0; }
 
 
-        while (line_Index < conversation.lines.Length)
+        while (line_Index < conversation.lines.Length && active_Bubbles != null)
         {
             Dialogue_Line current_Line = conversation.lines[line_Index];
 
 
             //Check if the speaker is within earshot
-            //TODO: scale volume according to planned room size
             Transform speaker = speakers[current_Line.speaker_Number];
-            Collider[] overlaps = Physics.OverlapSphere(speaker.position, current_Line.volume * 1.2f);
+            Collider[] overlaps = Physics.OverlapSphere(speaker.position, current_Line.volume * Room_Earshot_Scale);
 
             bool overlaps_Player = false;
 
@@ -121,7 +122,7 @@ public class Conversation_Playback : MonoBehaviour
 
     public void Remove_Speech_Bubbles()
     {
-        if(active_Bubbles == null){ return; }
+        if (active_Bubbles == null) { return; }
         VisualElement root = document.rootVisualElement;
 
         foreach (Label bubble in active_Bubbles)
@@ -129,5 +130,7 @@ public class Conversation_Playback : MonoBehaviour
             if (bubble == null) { continue; }
             root.Remove(bubble);
         }
+        
+        active_Bubbles = null;
     }
 }
