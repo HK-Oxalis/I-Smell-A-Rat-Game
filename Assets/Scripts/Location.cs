@@ -21,6 +21,7 @@ public class Location : MonoBehaviour, IClickable
     }
     public void On_Click(Clicker_Player player)
     {
+        Debug.Log("Chair clicked");
         player.Set_Goal_Position(new Vector3(transform.position.x, 0, transform.position.z));
         player.reached_Goal_Pos.AddListener(On_Player_Reach_Pos);
 
@@ -70,11 +71,11 @@ public class Location : MonoBehaviour, IClickable
         click_Action.action.performed -= On_Unclick;
 
 
-        clicker_Player.Enter_Dialogue_Mode();
+        
 
         clicker_Player.Set_Goal_Position(table_Camera_Transform.position);
         clicker_Player.Set_Goal_Rotation(table_Camera_Transform.forward);
 
-        clicker_Player.reached_Goal_Pos.AddListener(table.Start_Conversation);
+        clicker_Player.reached_Goal_Pos.AddListener(clicker_Player.Enter_Dialogue_Mode);
     }
 }

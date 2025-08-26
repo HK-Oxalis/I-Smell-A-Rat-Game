@@ -23,6 +23,8 @@ public class Clicker_Player : MonoBehaviour
     private bool moving_To_Goal = false;
     private bool panning = false;
     public UnityEvent reached_Goal_Pos = new UnityEvent();
+    public UnityEvent entering_Map_Mode = new UnityEvent();
+    public UnityEvent entering_Dialogue_Mode = new UnityEvent();
 
 
 
@@ -109,7 +111,9 @@ public class Clicker_Player : MonoBehaviour
 
     public void Enter_Map_Mode()
     {
+        entering_Map_Mode.Invoke();
         this.mode = Player_Mode.Map;
+
         table_Ui.enabled = false;
 
         goal_Position = new Vector3(0, 0, 0);
@@ -118,6 +122,7 @@ public class Clicker_Player : MonoBehaviour
 
     public void Enter_Dialogue_Mode()
     {
+        entering_Dialogue_Mode.Invoke();
         this.mode = Player_Mode.Dialogue;
 
         table_Ui.enabled = true;

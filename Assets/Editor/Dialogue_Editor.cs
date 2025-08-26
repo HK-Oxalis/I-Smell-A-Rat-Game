@@ -168,7 +168,6 @@ public class Dialogue_Editor : EditorWindow
         convo.load_JSON(convo_Text.text);
 
         active_Conversation = convo;
-        Debug.Log(convo);
 
         this.lines.Clear();
         this.lines.AddRange(convo.lines);
@@ -191,7 +190,7 @@ public class Dialogue_Editor : EditorWindow
         active_Conversation.file_Name = this.name_Edit.value;
 
 
-        string path = "Assets/Objects/Conversations/" + active_Conversation.file_Name + ".txt";
+        string path = "Assets/Resources/Conversations/" + active_Conversation.file_Name + ".txt";
 
         File.WriteAllText(path, active_Conversation.Save_JSON());
 
