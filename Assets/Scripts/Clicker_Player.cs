@@ -52,6 +52,7 @@ public class Clicker_Player : MonoBehaviour
             if ((Vector3.Distance(goal_Position, transform.position) < 0.1f) && (Vector3.Distance(goal_Rotation, cam.transform.forward) < 0.1f))
             {
                 reached_Goal_Pos.Invoke();
+                reached_Goal_Pos.RemoveAllListeners();
             }
         }
         else { moving_To_Goal = false; }

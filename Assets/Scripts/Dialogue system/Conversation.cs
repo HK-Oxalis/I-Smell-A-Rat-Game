@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 
 
+[Serializable]
 public class Dialogue_Line
 {
     public string text;
@@ -50,7 +51,6 @@ public class Conversation : ScriptableObject
         for (int i = 2; i < strings.Length - 1; i++) {
             //The split function removes the delimiter character, so I'm adding it back for the Json
             strings[i] += "}";
-            Debug.Log(strings[i]);
             json_Lines.Add(JsonUtility.FromJson<Dialogue_Line>(strings[i]));
         }
 

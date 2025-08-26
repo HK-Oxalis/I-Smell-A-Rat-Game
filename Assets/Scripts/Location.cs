@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 public class Location : MonoBehaviour, IClickable
 {
     [SerializeField] Transform table_Camera_Transform; //This is an empty that represents where the camera should go after you sit down here
+    [SerializeField] Table_Manager table;
 
     private UIDocument document;
     private Transform menu_Spawn; //This is an empty that represents where the sit down menu should spawn in world space
@@ -73,5 +74,7 @@ public class Location : MonoBehaviour, IClickable
 
         clicker_Player.Set_Goal_Position(table_Camera_Transform.position);
         clicker_Player.Set_Goal_Rotation(table_Camera_Transform.forward);
+
+        clicker_Player.reached_Goal_Pos.AddListener(table.Start_Conversation);
     }
 }
