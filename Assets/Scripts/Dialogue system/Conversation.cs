@@ -10,10 +10,17 @@ public class Dialogue_Line
 {
     public string text;
     public string keyphrase = "";
+    public string topic = "";
+    public string new_Information = "";
     public float volume = 5;
     public string audio_Path = "";
     public float length_Seconds;
     public int speaker_Number;
+
+    public void Add_To_Notebook()
+    {
+        Debug.Log("Adding line " + text);
+    }
 }
 
 [CreateAssetMenu(fileName = "Conversation", menuName = "Scriptable Objects/Conversation")]

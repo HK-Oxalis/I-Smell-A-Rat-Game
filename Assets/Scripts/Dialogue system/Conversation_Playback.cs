@@ -43,7 +43,7 @@ public class Conversation_Playback : MonoBehaviour
     {
         document.enabled = true;
 
-        if(active_Bubbles != null){ Remove_Speech_Bubbles(); }
+        if (active_Bubbles != null) { Remove_Speech_Bubbles(); }
 
         active_Bubbles = new Label[conversation.source_Count];
 
@@ -71,7 +71,8 @@ public class Conversation_Playback : MonoBehaviour
 
             if (overlaps_Player)
             {
-                Add_Speech_Bubble(current_Line.text, current_Line.speaker_Number);
+                bool has_Keyphrase = current_Line.keyphrase != "";
+                Add_Speech_Bubble(Add_Keyword_Style(current_Line.text, current_Line.keyphrase), current_Line.speaker_Number, has_Keyphrase);
                 Debug.Log(current_Line.text);
             }
             else
@@ -87,7 +88,7 @@ public class Conversation_Playback : MonoBehaviour
         }
     }
 
-    private void Add_Speech_Bubble(string speech, int speaker)
+    private void Add_Speech_Bubble(string speech, int speaker, bool has_Keyphrase = false)
     {
         VisualElement root = document.rootVisualElement;
 
@@ -116,6 +117,11 @@ public class Conversation_Playback : MonoBehaviour
         }
         else { bubble = active_Bubbles[speaker]; }
 
+        if (has_Keyphrase)
+        {
+            bubble.RegisterCallbackOnce<ClickEvent>((evt) => conversation.lines[line_Index].Add_To_Notebook());
+        }
+
         bubble.text = speech;
 
     }
@@ -130,7 +136,23 @@ public class Conversation_Playback : MonoBehaviour
             if (bubble == null) { continue; }
             root.Remove(bubble);
         }
-        
+
         active_Bubbles = null;
+    }
+
+    private string Add_Keyword_Style(string text, string keyphrase)
+    {
+        if(keyphrase == ""){ return text; }
+
+        int index = text.IndexOf(keyphrase);
+
+        int end_Index = index + keyphrase.Length;
+
+        //Add the end index before the start so the initial tag doesn't change the index
+        text = text.Insert(end_Index, "</b>");
+        text = text.Insert(index, "<b>");
+        
+
+        return text;
     }
 }

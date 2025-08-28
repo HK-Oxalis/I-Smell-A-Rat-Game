@@ -21,6 +21,8 @@ public class Dialogue_Editor : EditorWindow
 
     private TextField line_Edit;
     private TextField keyphrase_Edit;
+    private TextField topic_Edit;
+    private TextField information_Edit;
     private FloatField volume_Edit;
     private FloatField length_Edit;
     private DropdownField speaker_Select;
@@ -94,6 +96,16 @@ public class Dialogue_Editor : EditorWindow
         keyphrase_Edit = new TextField();
         rightPane.Add(keyphrase_Edit);
         keyphrase_Edit.RegisterCallback<ChangeEvent<string>>((evt) => { lines[current_Line].keyphrase = evt.newValue; });
+
+        rightPane.Add(new Label("Information topic in notebook"));
+        topic_Edit = new TextField();
+        rightPane.Add(topic_Edit);
+        topic_Edit.RegisterCallback<ChangeEvent<string>>((evt) => { lines[current_Line].topic = evt.newValue; });
+
+        rightPane.Add(new Label("Information to add to notebook"));
+        information_Edit = new TextField();
+        rightPane.Add(information_Edit);
+        information_Edit.RegisterCallback<ChangeEvent<string>>((evt) => { lines[current_Line].new_Information = evt.newValue; });
 
         rightPane.Add(new Label("Volume (from 1 - 10)"));
         volume_Edit = new FloatField();
