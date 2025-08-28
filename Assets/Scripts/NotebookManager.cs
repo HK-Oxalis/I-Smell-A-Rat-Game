@@ -31,7 +31,7 @@ public class NotebookManager : MonoBehaviour
         LoadJSON();
     }
 
-    void LoadJSON ()
+    public void LoadJSON ()
     {
         // Load the JSON file (place it in Resources folder in Unity)
         TextAsset jsonFile = Resources.Load<TextAsset>("SavedNotebook"); // no .json extension
@@ -42,13 +42,10 @@ public class NotebookManager : MonoBehaviour
 
         foreach (Entry e in data.entries)
         {
-            Debug.Log("Entry: " + e.name);
             foreach (NotebookEntry f in allEntries)
             {
-                Debug.Log("NE: " + f.name + f.entryId + " " + e.id);
                 if (f.entryId == e.id)
                 {
-                    Debug.Log("Name: " + e.name + " Loaded" + e.id);
                     f.UpdateEntry(e.name, e.og_textbox, e.information, e.connected_entries, e.unlocked);
                     f.gameObject.SetActive(e.unlocked);
                 }
