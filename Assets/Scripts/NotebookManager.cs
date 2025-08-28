@@ -19,8 +19,10 @@ public class NotebookManager : MonoBehaviour
         explanationDividerGO.SetActive(false);
         foreach (Transform index in entryParent)
         {
-            allEntries.Add(index.gameObject.GetComponent<NotebookEntry>());
+            if (index.gameObject.GetComponent<NotebookEntry>())
+                allEntries.Add(index.gameObject.GetComponent<NotebookEntry>());
         }
+        Debug.Log("AllEntryNum: " + allEntries.Count);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,7 +31,7 @@ public class NotebookManager : MonoBehaviour
         LoadJSON();
     }
 
-    void LoadJSON ()
+    public void LoadJSON ()
     {
         // Load the JSON file (place it in Resources folder in Unity)
         TextAsset jsonFile = Resources.Load<TextAsset>("SavedNotebook"); // no .json extension
@@ -40,7 +42,6 @@ public class NotebookManager : MonoBehaviour
 
         foreach (Entry e in data.entries)
         {
-            Debug.Log("Name: " + e.name + " Loaded");
             foreach (NotebookEntry f in allEntries)
             {
                 if (f.entryId == e.id)
