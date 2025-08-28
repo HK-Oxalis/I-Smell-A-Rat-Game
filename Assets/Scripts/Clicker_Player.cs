@@ -39,6 +39,7 @@ public class Clicker_Player : MonoBehaviour
         Enter_Map_Mode();
 
         cam.transform.forward = goal_Rotation;
+
     }
 
 

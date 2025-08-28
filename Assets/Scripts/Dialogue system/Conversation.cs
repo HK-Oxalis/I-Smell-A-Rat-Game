@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.IO;
+using UnityEditor;
 
 
 [Serializable]
@@ -20,6 +22,25 @@ public class Dialogue_Line
     public void Add_To_Notebook()
     {
         Debug.Log("Adding line " + text);
+        TextAsset jsonFile = Resources.Load<TextAsset>("SavedNotebook"); // no .json extension
+        string path = "Assets/Resources/SavedNotebook.json";
+
+        // Deserialize into C# objects
+        EntriesWrapper data = JsonUtility.FromJson<EntriesWrapper>(jsonFile.text);
+
+        foreach (Entry entry in data.entries)
+        {
+            if (topic == entry.name)
+            {
+                entry.information.Add(new_Information);
+                break;
+            }
+        }
+
+        File.WriteAllText(path, JsonUtility.ToJson(data));
+        AssetDatabase.ImportAsset(path);
+
+        
     }
 }
 

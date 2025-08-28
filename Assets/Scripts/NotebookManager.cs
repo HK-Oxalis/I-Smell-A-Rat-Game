@@ -77,5 +77,13 @@ public class Entry
 public class EntriesWrapper
 {
     public List<Entry> entries;
+
+    public void Clear_Info()
+    {
+        foreach (Entry entry in entries)
+        {
+            entry.information = new List<string>();
+        }
+    }
 }
 
