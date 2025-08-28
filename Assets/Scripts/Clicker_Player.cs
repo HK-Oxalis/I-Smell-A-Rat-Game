@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 public enum Player_Mode
 {
     Map,
-    Dialogue
+    Dialogue,
+    Door
 }
 
 public class Clicker_Player : MonoBehaviour
@@ -15,6 +16,7 @@ public class Clicker_Player : MonoBehaviour
     [SerializeField] public InputActionReference map_Cursor_Action;
     [SerializeField] private UIDocument table_Ui;
     [SerializeField] private float move_Speed;
+    [SerializeField] private Vector3 MAP_START = new Vector3(-8.5f, 20, -6);
     public Camera cam;
 
 
@@ -69,6 +71,9 @@ public class Clicker_Player : MonoBehaviour
 
             Vector3 panned_Position = new Vector3(transform.position.x - pan_Input.x, transform.position.y, transform.position.z - pan_Input.y);
 
+            if(panned_Position.x > MAP_START.x){panned_Position.x = MAP_START.x; }
+            if(panned_Position.z < MAP_START.z){ panned_Position.z = MAP_START.z; }
+
             transform.position = Vector3.MoveTowards(transform.position, panned_Position, move_Speed * Time.deltaTime);
 
             goal_Position = transform.position;
@@ -103,6 +108,7 @@ public class Clicker_Player : MonoBehaviour
 
     public void Set_Goal_Position(Vector3 new_Position)
     {
+        if(new_Position.y ==0){ new_Position.y = transform.position.y; }
         goal_Position = new_Position;
     }
 
@@ -118,7 +124,7 @@ public class Clicker_Player : MonoBehaviour
 
         table_Ui.enabled = false;
 
-        goal_Position = new Vector3(0, 0, 0);
+        goal_Position = MAP_START;
         goal_Rotation = new Vector3(0, -1, 0);
     }
 
@@ -131,7 +137,13 @@ public class Clicker_Player : MonoBehaviour
         table_Ui.rootVisualElement.Q("Stand_Up").RegisterCallbackOnce<ClickEvent>(Stand_Up);
     }
 
-    private void Stand_Up(ClickEvent evt) {
+    public void Enter_Door_Mode()
+    {
+        this.mode = Player_Mode.Door;
+    }
+
+    private void Stand_Up(ClickEvent evt)
+    {
         Enter_Map_Mode();
     }
 }

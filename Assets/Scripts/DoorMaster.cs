@@ -92,6 +92,10 @@ public class DoorMaster : MonoBehaviour
     void CorrectAnswerChosen ()
     {
         Debug.Log("This is where the player gets to go inside lol");
+
+        Clicker_Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Clicker_Player>();
+
+        player.Enter_Map_Mode();
         if (doorAnim) doorAnim.SetTrigger("Close");
     }
 }
