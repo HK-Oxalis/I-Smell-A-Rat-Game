@@ -19,8 +19,10 @@ public class NotebookManager : MonoBehaviour
         explanationDividerGO.SetActive(false);
         foreach (Transform index in entryParent)
         {
-            allEntries.Add(index.gameObject.GetComponent<NotebookEntry>());
+            if (index.gameObject.GetComponent<NotebookEntry>())
+                allEntries.Add(index.gameObject.GetComponent<NotebookEntry>());
         }
+        Debug.Log("AllEntryNum: " + allEntries.Count);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,11 +42,13 @@ public class NotebookManager : MonoBehaviour
 
         foreach (Entry e in data.entries)
         {
-            Debug.Log("Name: " + e.name + " Loaded");
+            Debug.Log("Entry: " + e.name);
             foreach (NotebookEntry f in allEntries)
             {
+                Debug.Log("NE: " + f.name + f.entryId + " " + e.id);
                 if (f.entryId == e.id)
                 {
+                    Debug.Log("Name: " + e.name + " Loaded" + e.id);
                     f.UpdateEntry(e.name, e.og_textbox, e.information, e.connected_entries, e.unlocked);
                     f.gameObject.SetActive(e.unlocked);
                 }
