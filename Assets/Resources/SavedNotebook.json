@@ -5,7 +5,7 @@
 			"id": 0,
 			"name": "The Boss",
 			"og_textbox": "I think Boss wouldn't like us talking about this new shipment so loudly...",
-			"information": [ ],
+			"information": [ "My contact mentioned someone called 'The Boss' is who I'm attempting to investigate. He most likely owns this speakeasy, but I should listen for any more clues as to who he is." ],
 			"connected_entries": ["John Lazia", "Otto Higgins", "Henry McElroy", "Robert Emmett O'Malley"],
 			"unlocked": true
 		},
