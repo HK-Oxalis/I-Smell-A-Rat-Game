@@ -16,7 +16,8 @@ public class Clicker_Player : MonoBehaviour
     [SerializeField] public InputActionReference map_Cursor_Action;
     [SerializeField] private UIDocument table_Ui;
     [SerializeField] private float move_Speed;
-    private Vector3 MAP_START = new Vector3(-8.5f, 20, -6);
+    [SerializeField] private float rotate_Speed = 10;
+    private Vector3 MAP_START = new Vector3(-10, 20, -6);
     private Vector3 MAP_BOUNDS = new Vector3(-30, 20, 14.5f);
     public Camera cam;
 
@@ -39,7 +40,6 @@ public class Clicker_Player : MonoBehaviour
 
         cam = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>();
 
-        //Enter_Map_Mode();
         Enter_Door_Mode();
 
         cam.transform.forward = goal_Rotation;
@@ -54,7 +54,7 @@ public class Clicker_Player : MonoBehaviour
         {
             moving_To_Goal = true;
             transform.position = Vector3.MoveTowards(transform.position, goal_Position, move_Speed * Time.deltaTime);
-            cam.transform.forward = Vector3.RotateTowards(cam.transform.forward, goal_Rotation, move_Speed * Time.deltaTime, move_Speed * Time.deltaTime);
+            cam.transform.forward = Vector3.RotateTowards(cam.transform.forward, goal_Rotation, rotate_Speed * Time.deltaTime, move_Speed * Time.deltaTime);
 
             if ((Vector3.Distance(goal_Position, transform.position) < 0.1f) && (Vector3.Distance(goal_Rotation, cam.transform.forward) < 0.1f))
             {
@@ -74,7 +74,9 @@ public class Clicker_Player : MonoBehaviour
             Vector3 panned_Position = new Vector3(transform.position.x - pan_Input.x, transform.position.y, transform.position.z - pan_Input.y);
 
             if(panned_Position.x > MAP_START.x){panned_Position.x = MAP_START.x; }
-            if(panned_Position.z < MAP_START.z){ panned_Position.z = MAP_START.z; }
+            if(panned_Position.x < MAP_BOUNDS.x){ panned_Position.x = MAP_BOUNDS.x; }
+            if (panned_Position.z < MAP_START.z) { panned_Position.z = MAP_START.z; }
+            if(panned_Position.z > MAP_BOUNDS.z){ panned_Position.z = MAP_BOUNDS.z; }
 
             transform.position = Vector3.MoveTowards(transform.position, panned_Position, move_Speed * Time.deltaTime);
 
@@ -141,6 +143,11 @@ public class Clicker_Player : MonoBehaviour
 
     public void Enter_Door_Mode()
     {
+        if (GameObject.FindGameObjectWithTag("DoorMaster") == null)
+        {
+            Enter_Map_Mode();
+            return;
+        }
         this.mode = Player_Mode.Door;
         table_Ui.enabled = false;
 

@@ -58,17 +58,9 @@ public class Location : MonoBehaviour, IClickable
 
     private void On_Unclick(InputAction.CallbackContext context)
     {
+        VisualElement picked_El = document.runtimePanel.Pick(RuntimePanelUtils.ScreenToPanel(document.runtimePanel, Input.mousePosition));
 
-
-        Rect bounding_Rect = document.rootVisualElement.worldBound;
-        //World bound was acting weird so I've just hardcoded the pixel size of the button here
-        //This is awful for Ui scalability, but it should work alright on most pc screens
-        bounding_Rect.width = 100;
-        bounding_Rect.height = 50;
-        bounding_Rect.y -= 50;
-        Vector2 pos = Input.mousePosition;
-        //If the click was outside of the menu's bounding box
-        if (!bounding_Rect.Contains(pos))
+        if (picked_El == document.rootVisualElement)
         {
             document.enabled = false;
             sittable_Indicator.GetComponent<MeshRenderer>().enabled = true;

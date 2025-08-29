@@ -102,11 +102,11 @@ public class Conversation_Playback : MonoBehaviour
             bubble.style.backgroundImage = speech_Bubble;
             bubble.style.unityTextAlign = TextAnchor.MiddleCenter;
             bubble.style.paddingBottom = (20);
-            bubble.style.paddingLeft = (50);
+            bubble.style.paddingLeft = (70);
             bubble.style.paddingRight = (50);
             bubble.style.paddingTop = (20);
 
-            Vector2 pos = Camera.main.WorldToScreenPoint(speakers[speaker].position);
+            Vector2 pos = Get_Bubble_Point(Camera.main, speakers[speaker].position);
 
             bubble.style.position = Position.Absolute;
 
@@ -124,6 +124,21 @@ public class Conversation_Playback : MonoBehaviour
 
         bubble.text = speech;
 
+    }
+
+    private Vector2 Get_Bubble_Point(Camera cam, Vector3 position)
+    {
+
+        Vector3 viewport_Pos = cam.WorldToViewportPoint(position);
+
+
+        viewport_Pos.x = Mathf.Clamp(viewport_Pos.x, 0.1f, 0.9f);
+        viewport_Pos.y = Mathf.Clamp(viewport_Pos.y, 0, 0.5f);
+        viewport_Pos.z = Mathf.Abs(viewport_Pos.z);
+
+        return cam.ViewportToScreenPoint(viewport_Pos);
+        
+    
     }
 
     public void Remove_Speech_Bubbles()
