@@ -16,7 +16,8 @@ public class Clicker_Player : MonoBehaviour
     [SerializeField] public InputActionReference map_Cursor_Action;
     [SerializeField] private UIDocument table_Ui;
     [SerializeField] private float move_Speed;
-    [SerializeField] private Vector3 MAP_START = new Vector3(-8.5f, 20, -6);
+    private Vector3 MAP_START = new Vector3(-8.5f, 20, -6);
+    private Vector3 MAP_BOUNDS = new Vector3(-30, 20, 14.5f);
     public Camera cam;
 
 
@@ -38,7 +39,8 @@ public class Clicker_Player : MonoBehaviour
 
         cam = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>();
 
-        Enter_Map_Mode();
+        //Enter_Map_Mode();
+        Enter_Door_Mode();
 
         cam.transform.forward = goal_Rotation;
 
@@ -140,6 +142,10 @@ public class Clicker_Player : MonoBehaviour
     public void Enter_Door_Mode()
     {
         this.mode = Player_Mode.Door;
+        table_Ui.enabled = false;
+
+        goal_Position = this.transform.position;
+        goal_Rotation = this.transform.forward;
     }
 
     private void Stand_Up(ClickEvent evt)

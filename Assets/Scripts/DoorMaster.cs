@@ -30,13 +30,13 @@ public class DoorMaster : MonoBehaviour
             if (i == answerInt)
             {
                 newAnswer.GetComponentInChildren<TextMeshProUGUI>().text = "<color=yellow>" + correctAnswer + "</color>";
-                newAnswer.GetComponent<DoorChoiceButton>().correctAnswer = false;
+                newAnswer.GetComponent<DoorChoiceButton>().correctAnswer = true;
             }
             else
             {
                 string ans = incorrectAnswerList[Random.Range(0, incorrectAnswerList.Count)];
                 newAnswer.GetComponentInChildren<TextMeshProUGUI>().text = ans;
-                newAnswer.GetComponent<DoorChoiceButton>().correctAnswer = true;
+                newAnswer.GetComponent<DoorChoiceButton>().correctAnswer = false;
                 incorrectAnswerList.Remove(ans);
             }
         }
@@ -91,7 +91,8 @@ public class DoorMaster : MonoBehaviour
 
     void CorrectAnswerChosen ()
     {
-        Debug.Log("This is where the player gets to go inside lol");
+        foreach (GameObject index in activateAfterKnock)
+            index.SetActive(false);
 
         Clicker_Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Clicker_Player>();
 
