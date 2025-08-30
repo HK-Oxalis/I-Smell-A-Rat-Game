@@ -130,6 +130,8 @@ public class Dialogue_Editor : EditorWindow
     {
         line_Edit.value = lines[new_Line].text;
         keyphrase_Edit.value = lines[new_Line].keyphrase;
+        topic_Edit.value = lines[new_Line].topic;
+        information_Edit.value = lines[new_Line].new_Information;
         volume_Edit.value = lines[new_Line].volume;
         length_Edit.value = lines[new_Line].length_Seconds;
         speaker_Select.index = lines[new_Line].speaker_Number;

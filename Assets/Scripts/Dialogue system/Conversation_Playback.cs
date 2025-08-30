@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 [ExecuteAlways]
 public class Conversation_Playback : MonoBehaviour
 {
-    public const float Room_Earshot_Scale = 1.2f;
+    public const float Room_Earshot_Scale = 2.3f;
 
     [SerializeField] TextAsset conversation_Asset;
     private Conversation conversation;
@@ -94,37 +94,36 @@ public class Conversation_Playback : MonoBehaviour
 
         Label bubble;
 
-        if (active_Bubbles[speaker] == null)
-        {
-            bubble = new Label();
-            active_Bubbles[speaker] = bubble;
-            root.Add(bubble);
-            bubble.style.backgroundImage = speech_Bubble;
-            bubble.style.unityTextAlign = TextAnchor.MiddleCenter;
-            bubble.style.paddingBottom = (20);
-            bubble.style.paddingLeft = (70);
-            bubble.style.paddingRight = (50);
-            bubble.style.paddingTop = (20);
+        if (active_Bubbles[speaker] != null) { root.Remove(active_Bubbles[speaker]); }
 
-            Vector2 pos = Get_Bubble_Point(Camera.main, speakers[speaker].position);
+        bubble = new Label();
+        active_Bubbles[speaker] = bubble;
+        bubble.text = speech;
+        root.Add(bubble);
+        bubble.style.backgroundImage = speech_Bubble;
+        bubble.style.unityTextAlign = TextAnchor.MiddleCenter;
+        bubble.style.whiteSpace = WhiteSpace.Normal;
+        bubble.style.paddingBottom = (10);
+        bubble.style.paddingLeft = (70);
+        bubble.style.paddingRight = (50);
+        bubble.style.paddingTop = (10);
 
-            bubble.style.position = Position.Absolute;
+        Vector2 pos = Get_Bubble_Point(Camera.main, speakers[speaker].position);
 
-            bubble.style.left = pos.x;
-            bubble.style.top = pos.y;
+        bubble.style.position = Position.Absolute;
 
-
-        }
-        else { bubble = active_Bubbles[speaker]; }
+        bubble.style.left = pos.x;
+        bubble.style.top = pos.y;
 
         if (has_Keyphrase)
         {
             bubble.RegisterCallbackOnce<ClickEvent>((evt) => conversation.lines[line_Index].Add_To_Notebook());
         }
 
-        bubble.text = speech;
 
     }
+    
+
 
     private Vector2 Get_Bubble_Point(Camera cam, Vector3 position)
     {
@@ -133,12 +132,12 @@ public class Conversation_Playback : MonoBehaviour
 
 
         viewport_Pos.x = Mathf.Clamp(viewport_Pos.x, 0.1f, 0.9f);
-        viewport_Pos.y = Mathf.Clamp(viewport_Pos.y, 0, 0.5f);
+        viewport_Pos.y = Random.Range(0.1f, 0.9f);
         viewport_Pos.z = Mathf.Abs(viewport_Pos.z);
 
         return cam.ViewportToScreenPoint(viewport_Pos);
-        
-    
+
+
     }
 
     public void Remove_Speech_Bubbles()

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Menu" style="align-self: flex-start;">
-        <ui:Button text="Stand Up" name="Stand_Up" style="align-self: flex-start;" />
+    <ui:VisualElement name="Menu" style="align-self: flex-start; width: 20%; height: 20%;">
+        <ui:Button name="Stand_Up" style="align-self: flex-start; background-image: url(&quot;project://database/Assets/Sprites/armchair_white.png?fileID=2800000&amp;guid=75a51830475b9c949b0aa2b655708913&amp;type=3#armchair_white&quot;); width: 100px; height: 100px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; -unity-background-image-tint-color: rgb(183, 32, 71); background-color: rgba(188, 188, 188, 0);" />
     </ui:VisualElement>
 </ui:UXML>

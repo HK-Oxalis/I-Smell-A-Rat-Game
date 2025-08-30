@@ -32,7 +32,12 @@ public class Dialogue_Line
         {
             if (topic == entry.name)
             {
+                Debug.Log("Added line");
                 entry.information.Add(new_Information);
+                entry.unlocked = true;
+
+                if(entry.og_textbox == " "){ entry.og_textbox = this.text; }
+
                 break;
             }
         }
