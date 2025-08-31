@@ -9,10 +9,12 @@ public class DoorChoiceButton : MonoBehaviour
     private void Awake()
     {
         dm = GameObject.FindGameObjectWithTag("DoorMaster").GetComponent<DoorMaster>();
+        Debug.Log(dm);
     }
 
     public void ClickedButton ()
     {
+        Debug.Log("Button clicked");
         dm.AnswerClicked(correctAnswer);
     }
 }

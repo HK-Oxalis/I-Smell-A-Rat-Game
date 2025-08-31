@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 [ExecuteAlways]
 public class Conversation_Playback : MonoBehaviour
 {
-    public const float Room_Earshot_Scale = 1.2f;
+    public const float Room_Earshot_Scale = 2.3f;
 
     [SerializeField] TextAsset conversation_Asset;
     private Conversation conversation;
@@ -19,8 +19,7 @@ public class Conversation_Playback : MonoBehaviour
 
     private void Start()
     {
-        document = GetComponent<UIDocument>();
-        document.enabled = false;
+        document = GameObject.FindGameObjectWithTag("TableMaster").GetComponent<UIDocument>();
     }
 
     private void OnValidate()
@@ -41,9 +40,9 @@ public class Conversation_Playback : MonoBehaviour
 
     public IEnumerator Start_Conversation(bool from_Beginning = true)
     {
-        document.enabled = true;
+        //document.enabled = true;
 
-        if(active_Bubbles != null){ Remove_Speech_Bubbles(); }
+        if (active_Bubbles != null) { Remove_Speech_Bubbles(); }
 
         active_Bubbles = new Label[conversation.source_Count];
 
@@ -71,7 +70,8 @@ public class Conversation_Playback : MonoBehaviour
 
             if (overlaps_Player)
             {
-                Add_Speech_Bubble(current_Line.text, current_Line.speaker_Number);
+                bool has_Keyphrase = current_Line.keyphrase != "";
+                Add_Speech_Bubble(Add_Keyword_Style(current_Line.text, current_Line.keyphrase), current_Line.speaker_Number, has_Keyphrase);
                 Debug.Log(current_Line.text);
             }
             else
@@ -85,42 +85,65 @@ public class Conversation_Playback : MonoBehaviour
 
             line_Index++;
         }
+
+        yield return new WaitForSeconds(1);
+
+        Remove_Speech_Bubbles();
     }
 
-    private void Add_Speech_Bubble(string speech, int speaker)
+    private void Add_Speech_Bubble(string speech, int speaker, bool has_Keyphrase = false)
     {
         VisualElement root = document.rootVisualElement;
 
         Label bubble;
 
-        if (active_Bubbles[speaker] == null)
-        {
-            bubble = new Label();
-            active_Bubbles[speaker] = bubble;
-            root.Add(bubble);
-            bubble.style.backgroundImage = speech_Bubble;
-            bubble.style.unityTextAlign = TextAnchor.MiddleCenter;
-            bubble.style.paddingBottom = (20);
-            bubble.style.paddingLeft = (50);
-            bubble.style.paddingRight = (50);
-            bubble.style.paddingTop = (20);
+        if (active_Bubbles[speaker] != null) { root.Remove(active_Bubbles[speaker]); }
 
-            Vector2 pos = Camera.main.WorldToScreenPoint(speakers[speaker].position);
-
-            bubble.style.position = Position.Absolute;
-
-            bubble.style.left = pos.x;
-            bubble.style.top = pos.y;
-
-
-        }
-        else { bubble = active_Bubbles[speaker]; }
-
+        bubble = new Label();
+        active_Bubbles[speaker] = bubble;
         bubble.text = speech;
+        root.Add(bubble);
+        bubble.style.backgroundImage = speech_Bubble;
+        bubble.style.unityTextAlign = TextAnchor.MiddleCenter;
+        bubble.style.whiteSpace = WhiteSpace.Normal;
+        bubble.style.paddingBottom = (10);
+        bubble.style.paddingLeft = (70);
+        bubble.style.paddingRight = (50);
+        bubble.style.paddingTop = (10);
+
+        Vector2 pos = Get_Bubble_Point(Camera.main, speakers[speaker].position);
+
+        bubble.style.position = Position.Absolute;
+
+        bubble.style.left = pos.x;
+        bubble.style.top = pos.y;
+
+        if (has_Keyphrase)
+        {
+            bubble.RegisterCallbackOnce<ClickEvent>((evt) => conversation.lines[line_Index].Add_To_Notebook());
+        }
+
+
+    }
+    
+
+
+    private Vector2 Get_Bubble_Point(Camera cam, Vector3 position)
+    {
+
+        Vector3 viewport_Pos = cam.WorldToViewportPoint(position);
+
+
+        viewport_Pos.x = Mathf.Clamp(viewport_Pos.x, 0.1f, 0.7f);
+        viewport_Pos.y = Random.Range(0.1f, 0.9f);
+        viewport_Pos.z = Mathf.Abs(viewport_Pos.z);
+
+        return cam.ViewportToScreenPoint(viewport_Pos);
+
 
     }
 
-    public void Remove_Speech_Bubbles()
+    public void Remove_Speech_Bubbles(bool disable_Document = false)
     {
         if (active_Bubbles == null) { return; }
         VisualElement root = document.rootVisualElement;
@@ -130,7 +153,25 @@ public class Conversation_Playback : MonoBehaviour
             if (bubble == null) { continue; }
             root.Remove(bubble);
         }
-        
+
         active_Bubbles = null;
+
+        //if (disable_Document) { document.enabled = false; }
+    }
+
+    private string Add_Keyword_Style(string text, string keyphrase)
+    {
+        if(keyphrase == ""){ return text; }
+
+        int index = text.IndexOf(keyphrase);
+
+        int end_Index = index + keyphrase.Length;
+
+        //Add the end index before the start so the initial tag doesn't change the index
+        text = text.Insert(end_Index, "</b>");
+        text = text.Insert(index, "<b>");
+        
+
+        return text;
     }
 }

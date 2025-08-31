@@ -21,6 +21,8 @@ public class Dialogue_Editor : EditorWindow
 
     private TextField line_Edit;
     private TextField keyphrase_Edit;
+    private TextField topic_Edit;
+    private TextField information_Edit;
     private FloatField volume_Edit;
     private FloatField length_Edit;
     private DropdownField speaker_Select;
@@ -95,6 +97,16 @@ public class Dialogue_Editor : EditorWindow
         rightPane.Add(keyphrase_Edit);
         keyphrase_Edit.RegisterCallback<ChangeEvent<string>>((evt) => { lines[current_Line].keyphrase = evt.newValue; });
 
+        rightPane.Add(new Label("Information topic in notebook"));
+        topic_Edit = new TextField();
+        rightPane.Add(topic_Edit);
+        topic_Edit.RegisterCallback<ChangeEvent<string>>((evt) => { lines[current_Line].topic = evt.newValue; });
+
+        rightPane.Add(new Label("Information to add to notebook"));
+        information_Edit = new TextField();
+        rightPane.Add(information_Edit);
+        information_Edit.RegisterCallback<ChangeEvent<string>>((evt) => { lines[current_Line].new_Information = evt.newValue; });
+
         rightPane.Add(new Label("Volume (from 1 - 10)"));
         volume_Edit = new FloatField();
         rightPane.Add(volume_Edit);
@@ -118,6 +130,8 @@ public class Dialogue_Editor : EditorWindow
     {
         line_Edit.value = lines[new_Line].text;
         keyphrase_Edit.value = lines[new_Line].keyphrase;
+        topic_Edit.value = lines[new_Line].topic;
+        information_Edit.value = lines[new_Line].new_Information;
         volume_Edit.value = lines[new_Line].volume;
         length_Edit.value = lines[new_Line].length_Seconds;
         speaker_Select.index = lines[new_Line].speaker_Number;

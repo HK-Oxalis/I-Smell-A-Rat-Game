@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 public enum Player_Mode
 {
     Map,
-    Dialogue
+    Dialogue,
+    Door
 }
 
 public class Clicker_Player : MonoBehaviour
@@ -15,6 +16,9 @@ public class Clicker_Player : MonoBehaviour
     [SerializeField] public InputActionReference map_Cursor_Action;
     [SerializeField] private UIDocument table_Ui;
     [SerializeField] private float move_Speed;
+    [SerializeField] private float rotate_Speed = 10;
+    private Vector3 MAP_START = new Vector3(-10, 20, -6);
+    private Vector3 MAP_BOUNDS = new Vector3(-30, 20, 14.5f);
     public Camera cam;
 
 
@@ -36,9 +40,10 @@ public class Clicker_Player : MonoBehaviour
 
         cam = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>();
 
-        Enter_Map_Mode();
+        Enter_Door_Mode();
 
         cam.transform.forward = goal_Rotation;
+
     }
 
 
@@ -49,7 +54,7 @@ public class Clicker_Player : MonoBehaviour
         {
             moving_To_Goal = true;
             transform.position = Vector3.MoveTowards(transform.position, goal_Position, move_Speed * Time.deltaTime);
-            cam.transform.forward = Vector3.RotateTowards(cam.transform.forward, goal_Rotation, move_Speed * Time.deltaTime, move_Speed * Time.deltaTime);
+            cam.transform.forward = Vector3.RotateTowards(cam.transform.forward, goal_Rotation, rotate_Speed * Time.deltaTime, move_Speed * Time.deltaTime);
 
             if ((Vector3.Distance(goal_Position, transform.position) < 0.1f) && (Vector3.Distance(goal_Rotation, cam.transform.forward) < 0.1f))
             {
@@ -67,6 +72,11 @@ public class Clicker_Player : MonoBehaviour
             Vector2 pan_Input = map_Cursor_Action.action.ReadValue<Vector2>();
 
             Vector3 panned_Position = new Vector3(transform.position.x - pan_Input.x, transform.position.y, transform.position.z - pan_Input.y);
+
+            if(panned_Position.x > MAP_START.x){panned_Position.x = MAP_START.x; }
+            if(panned_Position.x < MAP_BOUNDS.x){ panned_Position.x = MAP_BOUNDS.x; }
+            if (panned_Position.z < MAP_START.z) { panned_Position.z = MAP_START.z; }
+            if(panned_Position.z > MAP_BOUNDS.z){ panned_Position.z = MAP_BOUNDS.z; }
 
             transform.position = Vector3.MoveTowards(transform.position, panned_Position, move_Speed * Time.deltaTime);
 
@@ -88,7 +98,6 @@ public class Clicker_Player : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 1000f, LayerMask.GetMask("Chairs")))
         {
-            Debug.Log("Ray: " + hit.collider.name);
             IClickable clickable = hit.collider.GetComponent<IClickable>();
             if (clickable == null) { panning = true; return; }
 
@@ -102,6 +111,7 @@ public class Clicker_Player : MonoBehaviour
 
     public void Set_Goal_Position(Vector3 new_Position)
     {
+        if(new_Position.y ==0){ new_Position.y = transform.position.y; }
         goal_Position = new_Position;
     }
 
@@ -117,7 +127,7 @@ public class Clicker_Player : MonoBehaviour
 
         table_Ui.enabled = false;
 
-        goal_Position = new Vector3(0, 0, 0);
+        goal_Position = MAP_START;
         goal_Rotation = new Vector3(0, -1, 0);
     }
 
@@ -130,7 +140,22 @@ public class Clicker_Player : MonoBehaviour
         table_Ui.rootVisualElement.Q("Stand_Up").RegisterCallbackOnce<ClickEvent>(Stand_Up);
     }
 
-    private void Stand_Up(ClickEvent evt) {
+    public void Enter_Door_Mode()
+    {
+        if (GameObject.FindGameObjectWithTag("DoorMaster") == null)
+        {
+            Enter_Map_Mode();
+            return;
+        }
+        this.mode = Player_Mode.Door;
+        table_Ui.enabled = false;
+
+        goal_Position = this.transform.position;
+        goal_Rotation = this.transform.forward;
+    }
+
+    private void Stand_Up(ClickEvent evt)
+    {
         Enter_Map_Mode();
     }
 }

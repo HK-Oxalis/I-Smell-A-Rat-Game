@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEditor;
+using System.IO;
 
 public class NotebookManager : MonoBehaviour
 {
@@ -28,6 +30,12 @@ public class NotebookManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        TextAsset master_Notes = Resources.Load<TextAsset>("Master_Notebook");
+
+        string path = "Assets/Resources/SavedNotebook.json";
+
+        File.WriteAllText(path, master_Notes.text);
+
         LoadJSON();
     }
 
@@ -77,5 +85,13 @@ public class Entry
 public class EntriesWrapper
 {
     public List<Entry> entries;
+
+    public void Clear_Info()
+    {
+        foreach (Entry entry in entries)
+        {
+            entry.information = new List<string>();
+        }
+    }
 }
 

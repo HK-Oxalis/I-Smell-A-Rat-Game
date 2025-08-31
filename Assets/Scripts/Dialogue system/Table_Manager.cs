@@ -15,12 +15,12 @@ public class Table_Manager : MonoBehaviour
 
     public void Start_Conversation()
     {
-        StartCoroutine(playback.Start_Conversation());
+        StartCoroutine(playback.Start_Conversation(false));
     }
 
     public void Stop_Conversation()
     {
         StopCoroutine(playback.Start_Conversation());
-        playback.Remove_Speech_Bubbles();
+        playback.Remove_Speech_Bubbles(true);
     }
 }
