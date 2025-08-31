@@ -43,7 +43,6 @@ public class Dialogue_Line
         }
 
         File.WriteAllText(path, JsonUtility.ToJson(data));
-        AssetDatabase.ImportAsset(path);
 
         
     }

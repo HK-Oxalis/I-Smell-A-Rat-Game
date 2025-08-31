@@ -98,7 +98,6 @@ public class Clicker_Player : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 1000f, LayerMask.GetMask("Chairs")))
         {
-            Debug.Log("Ray: " + hit.collider.name);
             IClickable clickable = hit.collider.GetComponent<IClickable>();
             if (clickable == null) { panning = true; return; }
 

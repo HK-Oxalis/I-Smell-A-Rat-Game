@@ -51,7 +51,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  speech_Bubble: {fileID: 2800000, guid: 969ce2ae615044f449ac6302d16b48a4, type: 3}
+  speech_Bubble: {fileID: 2800000, guid: 87be5ed2328af21489918d678d8f1db5, type: 3}
 --- !u!114 &2103857797251138898
 MonoBehaviour:
   m_ObjectHideFlags: 0

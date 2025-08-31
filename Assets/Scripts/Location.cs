@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using System.Threading.Tasks;
+using UnityEngine.EventSystems;
 
 public class Location : MonoBehaviour, IClickable
 {
@@ -57,9 +58,7 @@ public class Location : MonoBehaviour, IClickable
 
     private void On_Unclick(InputAction.CallbackContext context)
     {
-        VisualElement picked_El = document.runtimePanel.Pick(RuntimePanelUtils.ScreenToPanel(document.runtimePanel, Input.mousePosition));
-
-        if (picked_El == document.rootVisualElement)
+        if (EventSystem.current.IsPointerOverGameObject() == false)
         {
             document.enabled = false;
             sittable_Indicator.GetComponent<MeshRenderer>().enabled = true;
@@ -72,7 +71,6 @@ public class Location : MonoBehaviour, IClickable
 
     private void Sit_Down(ClickEvent evt)
     {
-        Debug.Log("Sitting down");
         document.enabled = false;
         click_Action.action.performed -= On_Unclick;
 

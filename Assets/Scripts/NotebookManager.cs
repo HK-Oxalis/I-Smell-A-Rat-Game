@@ -36,7 +36,6 @@ public class NotebookManager : MonoBehaviour
 
         File.WriteAllText(path, master_Notes.text);
 
-        AssetDatabase.ImportAsset(path);
         LoadJSON();
     }
 

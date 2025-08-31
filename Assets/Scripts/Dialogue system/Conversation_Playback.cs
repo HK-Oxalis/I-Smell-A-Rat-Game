@@ -19,8 +19,7 @@ public class Conversation_Playback : MonoBehaviour
 
     private void Start()
     {
-        document = GetComponent<UIDocument>();
-        document.enabled = false;
+        document = GameObject.FindGameObjectWithTag("TableMaster").GetComponent<UIDocument>();
     }
 
     private void OnValidate()
@@ -41,7 +40,7 @@ public class Conversation_Playback : MonoBehaviour
 
     public IEnumerator Start_Conversation(bool from_Beginning = true)
     {
-        document.enabled = true;
+        //document.enabled = true;
 
         if (active_Bubbles != null) { Remove_Speech_Bubbles(); }
 
@@ -86,6 +85,10 @@ public class Conversation_Playback : MonoBehaviour
 
             line_Index++;
         }
+
+        yield return new WaitForSeconds(1);
+
+        Remove_Speech_Bubbles();
     }
 
     private void Add_Speech_Bubble(string speech, int speaker, bool has_Keyphrase = false)
@@ -131,7 +134,7 @@ public class Conversation_Playback : MonoBehaviour
         Vector3 viewport_Pos = cam.WorldToViewportPoint(position);
 
 
-        viewport_Pos.x = Mathf.Clamp(viewport_Pos.x, 0.1f, 0.9f);
+        viewport_Pos.x = Mathf.Clamp(viewport_Pos.x, 0.1f, 0.7f);
         viewport_Pos.y = Random.Range(0.1f, 0.9f);
         viewport_Pos.z = Mathf.Abs(viewport_Pos.z);
 
@@ -140,7 +143,7 @@ public class Conversation_Playback : MonoBehaviour
 
     }
 
-    public void Remove_Speech_Bubbles()
+    public void Remove_Speech_Bubbles(bool disable_Document = false)
     {
         if (active_Bubbles == null) { return; }
         VisualElement root = document.rootVisualElement;
@@ -152,6 +155,8 @@ public class Conversation_Playback : MonoBehaviour
         }
 
         active_Bubbles = null;
+
+        //if (disable_Document) { document.enabled = false; }
     }
 
     private string Add_Keyword_Style(string text, string keyphrase)
