@@ -73,11 +73,11 @@ public class Conversation_Playback : MonoBehaviour
             {
                 bool has_Keyphrase = current_Line.keyphrase != "";
                 Add_Speech_Bubble(Add_Keyword_Style(current_Line.text, current_Line.keyphrase), current_Line.speaker_Number, has_Keyphrase);
-                Debug.Log(current_Line.text);
+                //Debug.Log(current_Line.text);
             }
             else
             {
-                Debug.Log("Too quiet to hear");
+                //Debug.Log("Too quiet to hear");
             }
 
             float waitSeconds = CalculateDisplayTime(current_Line.text, 120);
