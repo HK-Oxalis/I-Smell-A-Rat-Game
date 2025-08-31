@@ -27,10 +27,12 @@ public class Location : MonoBehaviour, IClickable
         float uniform_Scale = 5 * Conversation_Playback.Room_Earshot_Scale;
         earshot_Indicator.localScale = new Vector3(uniform_Scale, uniform_Scale, uniform_Scale);
 
+        sittable_Indicator = gameObject.transform.GetChild(4);
         sittable_Indicator.GetComponent<MeshRenderer>().enabled = true;
     }
     public void On_Click(Clicker_Player player)
     {
+        Debug.Log("Clicked Chair");
         player.Set_Goal_Position(new Vector3(transform.position.x, 0, transform.position.z));
         player.reached_Goal_Pos.AddListener(On_Player_Reach_Pos);
 
@@ -71,6 +73,7 @@ public class Location : MonoBehaviour, IClickable
 
     private void Sit_Down(ClickEvent evt)
     {
+        Debug.Log("Called Sit Down");
         document.enabled = false;
         click_Action.action.performed -= On_Unclick;
 
