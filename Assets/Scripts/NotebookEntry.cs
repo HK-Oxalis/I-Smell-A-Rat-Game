@@ -22,11 +22,16 @@ public class NotebookEntry : MonoBehaviour
 
     public void EntryClicked ()
     {
-        string finalInformation = entryInformation[0];
-        for (int i = 1; i < entryInformation.Count; i++)
+        string finalInformation = "";
+        if (entryInformation.Count != 0)
         {
-            finalInformation += "\n\n" + entryInformation[i];
+            finalInformation = entryInformation[0];
+            for (int i = 1; i < entryInformation.Count; i++)
+            {
+                finalInformation += "\n\n" + entryInformation[i];
+            }
         }
+
         nm.DisplayExplanation(entryName, entryDialogueRef, finalInformation);
     }
 

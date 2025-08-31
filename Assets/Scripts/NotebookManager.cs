@@ -32,17 +32,20 @@ public class NotebookManager : MonoBehaviour
     {
         TextAsset master_Notes = Resources.Load<TextAsset>("Master_Notebook");
 
-        string path = "Assets/Resources/SavedNotebook.json";
+
+        string path = Application.dataPath + "/Resources/SavedNotebook.json";
 
         File.WriteAllText(path, master_Notes.text);
 
         LoadJSON();
     }
 
-    public void LoadJSON ()
+    public void LoadJSON()
     {
         // Load the JSON file (place it in Resources folder in Unity)
-        TextAsset jsonFile = Resources.Load<TextAsset>("SavedNotebook"); // no .json extension
+        byte[] file = File.ReadAllBytes(Application.dataPath + "/Resources/SavedNotebook.json");
+
+        TextAsset jsonFile = new TextAsset(file);
         Debug.Log("Opened JSON");
 
         // Deserialize into C# objects
@@ -61,12 +64,20 @@ public class NotebookManager : MonoBehaviour
         }
     }
 
-    public void DisplayExplanation (string entryName, string entryDialogueRef, string entryExplanation)
+    public void DisplayExplanation(string entryName, string entryDialogueRef, string entryExplanation)
     {
         explanationDividerGO.SetActive(true);
         entryNameTB.text = entryName;
         entryDiaRefTB.text = entryDialogueRef;
         entryExplanationTB.text = entryExplanation;
+    }
+
+    public void Unlock_All()
+    {
+        foreach (NotebookEntry entry in allEntries)
+        {
+            entry.gameObject.SetActive(true);
+        }
     }
 }
 

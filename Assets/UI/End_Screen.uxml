@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; background-image: url(&quot;project://database/Assets/Sprites/end1.png?fileID=2800000&amp;guid=8da044321bce6b841aac1e4620b7c85a&amp;type=3#end1&quot;);">
+        <ui:Label text="To be continued..." name="Label" style="-unity-font-style: bold; font-size: 32%; -unity-text-align: upper-right;" />
+        <ui:Label text="Label" name="Clue_Text" style="align-self: center;" />
+    </ui:VisualElement>
+</ui:UXML>
