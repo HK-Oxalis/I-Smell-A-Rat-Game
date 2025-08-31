@@ -7,7 +7,8 @@ public enum Player_Mode
 {
     Map,
     Dialogue,
-    Door
+    Door,
+    Notes
 }
 
 public class Clicker_Player : MonoBehaviour
@@ -33,6 +34,7 @@ public class Clicker_Player : MonoBehaviour
 
 
     private Player_Mode mode = Player_Mode.Map;
+    private Player_Mode prev_mode = Player_Mode.Notes;
 
     void Start()
     {
@@ -152,6 +154,27 @@ public class Clicker_Player : MonoBehaviour
 
         goal_Position = this.transform.position;
         goal_Rotation = this.transform.forward;
+    }
+
+    public void Enter_Notes_Mode()
+    {
+        prev_mode = this.mode;
+        this.mode = Player_Mode.Notes;
+    }
+
+    public void Exit_Notes_Mode()
+    {
+        switch (prev_mode)
+        {
+            case Player_Mode.Map:
+                this.mode = Player_Mode.Map; break;
+            case Player_Mode.Door:
+                this.mode = Player_Mode.Door; break;
+            case Player_Mode.Dialogue:
+                mode = Player_Mode.Dialogue;
+                break;
+
+        }
     }
 
     private void Stand_Up(ClickEvent evt)

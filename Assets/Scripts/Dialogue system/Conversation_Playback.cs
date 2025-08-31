@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 
 [ExecuteAlways]
@@ -10,6 +11,7 @@ public class Conversation_Playback : MonoBehaviour
     public const float Room_Earshot_Scale = 2.3f;
 
     [SerializeField] TextAsset conversation_Asset;
+    [SerializeField] string conversation_Path;
     private Conversation conversation;
     [SerializeField] Transform[] speakers;
     [SerializeField] Texture2D speech_Bubble;
@@ -20,7 +22,14 @@ public class Conversation_Playback : MonoBehaviour
     private void Start()
     {
         document = GameObject.FindGameObjectWithTag("TableMaster").GetComponent<UIDocument>();
+
+        if(conversation == null){ conversation = ScriptableObject.CreateInstance<Conversation>();}
+
+        conversation_Asset = Resources.Load(conversation_Path) as TextAsset;
+
+        conversation.load_JSON(conversation_Asset.text);
     }
+
 
     private void OnValidate()
     {
@@ -35,12 +44,23 @@ public class Conversation_Playback : MonoBehaviour
 
             }
 
+/*             if (Application.isEditor || (Debug.isDebugBuild == true))
+            {
+                conversation_Path = AssetDatabase.GetAssetPath(conversation_Asset);
+
+                int resources_Index = conversation_Path.IndexOf("Resources");
+                conversation_Path = conversation_Path.Remove(0, resources_Index + "Resources".Length + 1);
+
+                conversation_Path = conversation_Path.Remove(conversation_Path.LastIndexOf("."));
+            } */
+
+            
+
         }
     }
 
     public IEnumerator Start_Conversation(bool from_Beginning = true)
     {
-        //document.enabled = true;
 
         if (active_Bubbles != null) { Remove_Speech_Bubbles(); }
 
@@ -48,6 +68,8 @@ public class Conversation_Playback : MonoBehaviour
 
         if (from_Beginning) { line_Index = 0; }
 
+        //Randomly waiting some time so all conversations don't start at once
+        yield return new WaitForSeconds(Random.Range(0, 4));
 
         while (line_Index < conversation.lines.Length && active_Bubbles != null)
         {

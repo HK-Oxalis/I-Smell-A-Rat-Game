@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SpeakeasyMain.unity
     guid: bb941433ea2e50e43bf443dcb6003570
+  - enabled: 1
+    path: Assets/Scenes/End_Screen.unity
+    guid: 29a01977cbe67e14d81e0b1b637b04aa
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35579a228235a614bb492518e260947f, type: 3}
   m_UseUCBPForAssetBundles: 0

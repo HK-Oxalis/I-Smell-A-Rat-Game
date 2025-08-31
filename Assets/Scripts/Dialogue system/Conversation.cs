@@ -22,8 +22,13 @@ public class Dialogue_Line
     public void Add_To_Notebook()
     {
         Debug.Log("Adding line " + text);
-        TextAsset jsonFile = Resources.Load<TextAsset>("SavedNotebook"); // no .json extension
-        string path = "Assets/Resources/SavedNotebook.json";
+
+        string path = Application.dataPath + "/Resources/SavedNotebook.json";
+
+        byte[] file = File.ReadAllBytes(Application.dataPath + "/Resources/SavedNotebook.json");
+
+        TextAsset jsonFile = new TextAsset(file);
+        
 
         // Deserialize into C# objects
         EntriesWrapper data = JsonUtility.FromJson<EntriesWrapper>(jsonFile.text);
