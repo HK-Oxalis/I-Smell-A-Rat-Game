@@ -17,7 +17,6 @@ public class Clicker_Player : MonoBehaviour
     [SerializeField] private UIDocument table_Ui;
     [SerializeField] private float move_Speed;
     [SerializeField] private float rotate_Speed = 10;
-    [SerializeField] private GameObject notepadUI;
     private Vector3 MAP_START = new Vector3(-10, 20, -6);
     private Vector3 MAP_BOUNDS = new Vector3(-30, 20, 14.5f);
     public Camera cam;
@@ -123,7 +122,6 @@ public class Clicker_Player : MonoBehaviour
 
     public void Enter_Map_Mode()
     {
-        notepadUI.SetActive(false);
         entering_Map_Mode.Invoke();
         this.mode = Player_Mode.Map;
 
@@ -135,7 +133,6 @@ public class Clicker_Player : MonoBehaviour
 
     public void Enter_Dialogue_Mode()
     {
-        notepadUI.SetActive(true);
         entering_Dialogue_Mode.Invoke();
         this.mode = Player_Mode.Dialogue;
 
