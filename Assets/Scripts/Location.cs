@@ -10,6 +10,8 @@ public class Location : MonoBehaviour, IClickable
 
     private UIDocument document;
     private Transform menu_Spawn; //This is an empty that represents where the sit down menu should spawn in world space
+    private Transform earshot_Indicator;
+
     private InputActionReference click_Action;
     private Clicker_Player clicker_Player;
 
@@ -18,6 +20,10 @@ public class Location : MonoBehaviour, IClickable
     {
         document = gameObject.transform.GetChild(0).gameObject.GetComponent<UIDocument>();
         menu_Spawn = gameObject.transform.GetChild(1);
+        earshot_Indicator = gameObject.transform.GetChild(2);
+
+        float uniform_Scale = 5 * Conversation_Playback.Room_Earshot_Scale;
+        earshot_Indicator.localScale =new Vector3(uniform_Scale, uniform_Scale, uniform_Scale);
     }
     public void On_Click(Clicker_Player player)
     {
@@ -40,6 +46,8 @@ public class Location : MonoBehaviour, IClickable
 
         //call the sit down function when the button named that is clicked
         (menu.Q("Sit_Down") as Button).RegisterCallback<ClickEvent>(Sit_Down);
+
+        earshot_Indicator.GetComponent<MeshRenderer>().enabled = true;
     }
 
     private void On_Unclick(InputAction.CallbackContext context)
@@ -56,8 +64,8 @@ public class Location : MonoBehaviour, IClickable
         //If the click was outside of the menu's bounding box
         if (!bounding_Rect.Contains(pos))
         {
-            Debug.Log(bounding_Rect + " " + pos);
             document.enabled = false;
+            earshot_Indicator.GetComponent<MeshRenderer>().enabled = false;
             click_Action.action.performed -= On_Unclick;
         }
         
@@ -69,12 +77,12 @@ public class Location : MonoBehaviour, IClickable
         document.enabled = false;
         click_Action.action.performed -= On_Unclick;
 
-
-        clicker_Player.Enter_Dialogue_Mode();
+        earshot_Indicator.GetComponent<MeshRenderer>().enabled = false;
+        
 
         clicker_Player.Set_Goal_Position(table_Camera_Transform.position);
         clicker_Player.Set_Goal_Rotation(table_Camera_Transform.forward);
 
-        clicker_Player.reached_Goal_Pos.AddListener(table.Start_Conversation);
+        clicker_Player.reached_Goal_Pos.AddListener(clicker_Player.Enter_Dialogue_Mode);
     }
 }

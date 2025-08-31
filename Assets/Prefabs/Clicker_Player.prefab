@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1088982744709125896}
   - component: {fileID: 2246040214093590916}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Table_Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 531647821510414104}
   - component: {fileID: 4625444917932710078}
   - component: {fileID: 7797182467066183541}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,9 +199,9 @@ GameObject:
   - component: {fileID: 1612034514992130582}
   - component: {fileID: 1342202820638490243}
   - component: {fileID: 5357140742865827480}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Clicker_Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -243,6 +243,12 @@ MonoBehaviour:
   reached_Goal_Pos:
     m_PersistentCalls:
       m_Calls: []
+  entering_Map_Mode:
+    m_PersistentCalls:
+      m_Calls: []
+  entering_Dialogue_Mode:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!135 &5357140742865827480
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -257,7 +263,7 @@ SphereCollider:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
