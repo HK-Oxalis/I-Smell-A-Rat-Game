@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,9 +80,10 @@ public class Conversation_Playback : MonoBehaviour
                 Debug.Log("Too quiet to hear");
             }
 
+            float waitSeconds = CalculateDisplayTime(current_Line.text, 120);
+            yield return new WaitForSeconds(waitSeconds);
 
-
-            yield return new WaitForSeconds(current_Line.length_Seconds);
+            //yield return new WaitForSeconds(current_Line.length_Seconds);
 
             line_Index++;
         }
@@ -89,6 +91,22 @@ public class Conversation_Playback : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         Remove_Speech_Bubbles();
+    }
+
+    float CalculateDisplayTime(string text, int wordsPerMinute = 200)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return 0;
+
+        // Split the string into words
+        string[] words = text.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+        int wordCount = words.Length;
+
+        // Convert WPM to words per second
+        float wordsPerSecond = wordsPerMinute / 60.0f;
+
+        // Calculate display time in seconds
+        return wordCount / wordsPerSecond;
     }
 
     private void Add_Speech_Bubble(string speech, int speaker, bool has_Keyphrase = false)
@@ -135,7 +153,7 @@ public class Conversation_Playback : MonoBehaviour
 
 
         viewport_Pos.x = Mathf.Clamp(viewport_Pos.x, 0.1f, 0.7f);
-        viewport_Pos.y = Random.Range(0.1f, 0.9f);
+        viewport_Pos.y = UnityEngine.Random.Range(0.1f, 0.9f);
         viewport_Pos.z = Mathf.Abs(viewport_Pos.z);
 
         return cam.ViewportToScreenPoint(viewport_Pos);
