@@ -46,6 +46,10 @@ public class AudioPlayer : MonoBehaviour
             }
 
             currentClipIndex++;
+            if (currentClipIndex >= audioClips.Length)
+            {
+                currentClipIndex = 0;
+            }
         }
 
         //isPlaying = false;

@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorMaster : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class DoorMaster : MonoBehaviour
     public GameObject answerPrefab;
     public Transform answerBank;
     public Animator doorAnim;
+    public GameObject notepadHUD;
+    public TextMeshPro doormanText;
+    public Texture2D knockHand;
+    public Texture2D pointHand;
 
     List<string> incorrectAnswerList = new List<string>
             { "Herbert", "Hunky", "Howitzer" };
@@ -23,6 +28,7 @@ public class DoorMaster : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Cursor.SetCursor(knockHand, Vector2.zero, CursorMode.Auto);
         int answerInt = Random.Range(0, 3);
         for (int i = 0; i < 3; i++)
         {
@@ -69,6 +75,7 @@ public class DoorMaster : MonoBehaviour
 
     void DoormanAnswers ()
     {
+        Cursor.SetCursor(pointHand, Vector2.zero, CursorMode.Auto);
         if (doorAnim) doorAnim.SetTrigger("Open");
         foreach (GameObject index in activateAfterKnock)
             index.SetActive(true);
@@ -82,11 +89,19 @@ public class DoorMaster : MonoBehaviour
         {
             Debug.Log("Player Chose Right!");
             CorrectAnswerChosen();
+            notepadHUD.SetActive(true);
         }
         else
         {
             Debug.Log("Player Chose Wrong!");
+            doormanText.text = "Wrong Answer. Security!";
+            Invoke("ReloadScene", 3);
         }
+    }
+
+    void ReloadScene ()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void CorrectAnswerChosen ()

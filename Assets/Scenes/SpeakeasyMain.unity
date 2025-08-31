@@ -393,7 +393,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46276311}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7.6288576}
+  m_LocalPosition: {x: 0, y: 0, z: -0.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -401,8 +401,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.33, y: 5.0503254}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 3.153, y: 6.009}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &46276313
 MonoBehaviour:
@@ -451,8 +451,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3.57
-  m_fontSizeBase: 3.57
+  m_fontSize: 8.14
+  m_fontSizeBase: 8.14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4832,7 +4832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &443130149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16497,6 +16497,10 @@ MonoBehaviour:
   answerPrefab: {fileID: 7679395697126143126, guid: 06f164ee7d4732745b2d5c4d8fdadf2a, type: 3}
   answerBank: {fileID: 437548353}
   doorAnim: {fileID: 1297870321}
+  notepadHUD: {fileID: 443130148}
+  doormanText: {fileID: 46276313}
+  knockHand: {fileID: 2800000, guid: ee709c40be8370142baa6b518a46079b, type: 3}
+  pointHand: {fileID: 2800000, guid: e7b99446e0e617a4fa77443748dfc48b, type: 3}
 --- !u!1 &1340708600
 GameObject:
   m_ObjectHideFlags: 0
